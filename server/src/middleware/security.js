@@ -5,7 +5,7 @@ import { config } from '../config/env.js';
 // Security considerations from 2-backend-api.md: CORS + Rate Limiting.
 
 export const corsMiddleware = cors({
-  origin: config.clientOrigin,
+  origin: [config.clientOrigin, 'http://localhost:5173', 'https://3d-projection-client.vercel.app'],
   credentials: true,
 });
 
