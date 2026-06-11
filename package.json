@@ -1,0 +1,23 @@
+{
+  "name": "ar-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AR Platform — upload 3D models or videos, generate QR codes, view in AR. Local skeleton with mocked S3 + AI photogrammetry.",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,client -c green,cyan \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "npm run dev --workspace server",
+    "dev:client": "npm run dev --workspace client",
+    "start:server": "npm run start --workspace server",
+    "build:client": "npm run build --workspace client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
