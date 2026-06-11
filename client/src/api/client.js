@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // Relative baseURL; Vite proxies /api -> http://localhost:4000 in dev.
-const http = axios.create({ baseURL: '/api' });
+// In production, VITE_API_URL can be used to point to the backend domain.
+const http = axios.create({ baseURL: import.meta.env.VITE_API_URL || '/api' });
 
 export async function uploadDirect(file, { email, onProgress } = {}) {
   const form = new FormData();

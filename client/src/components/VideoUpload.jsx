@@ -73,7 +73,8 @@ export default function VideoUpload() {
       setPhase('processing');
     } catch (err) {
       setPhase('error');
-      setError(err?.response?.data?.error || err.message);
+      const apiErr = err?.response?.data?.error;
+      setError(typeof apiErr === 'string' ? apiErr : (apiErr?.message || err.message || 'An error occurred'));
     }
   }
 

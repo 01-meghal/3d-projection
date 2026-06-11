@@ -29,7 +29,8 @@ export function useJobStatus(assetId, { intervalMs = 3000, enabled = true } = {}
         if (TERMINAL.includes(data.status)) return; // stop scheduling
       } catch (err) {
         if (cancelled) return;
-        setError(err?.response?.data?.error || err.message);
+        const apiErr = err?.response?.data?.error;
+        setError(typeof apiErr === 'string' ? apiErr : (apiErr?.message || err.message || 'An error occurred'));
       }
       timer.current = setTimeout(poll, intervalMs);
     }

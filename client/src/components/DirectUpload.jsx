@@ -36,7 +36,8 @@ export default function DirectUpload() {
       navigate(`/qr-generator/${res.assetId}`);
     } catch (err) {
       setStatus('error');
-      setError(err?.response?.data?.error || err.message);
+      const apiErr = err?.response?.data?.error;
+      setError(typeof apiErr === 'string' ? apiErr : (apiErr?.message || err.message || 'An error occurred'));
     }
   }
 
