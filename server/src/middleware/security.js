@@ -5,7 +5,21 @@ import { config } from '../config/env.js';
 // Security considerations from 2-backend-api.md: CORS + Rate Limiting.
 
 export const corsMiddleware = cors({
-  origin: [config.clientOrigin, 'http://localhost:5173', 'https://3d-projection-client.vercel.app'],
+  origin: (origin, callback) => {
+    if (
+      !origin ||
+      origin === config.clientOrigin ||
+      origin === 'http://localhost:5173' ||
+      origin === 'https://3d-projection-client.vercel.app' ||
+      origin.endsWith('.trycloudflare.com') ||
+      origin.endsWith('.localtunnel.me') ||
+      origin.endsWith('.loca.lt')
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 });
 
